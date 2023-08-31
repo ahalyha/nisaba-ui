@@ -1,7 +1,6 @@
 import { Box, styled } from "@mui/material";
 
 export const LogoContainer = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing(10),
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
