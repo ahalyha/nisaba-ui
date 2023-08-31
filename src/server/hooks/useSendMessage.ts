@@ -10,10 +10,11 @@ export const useSendMessage = ({ scope }: { scope: "public" | "private" }) => {
         console.log(error);
       },
       onSuccess: (data) => {
+        const localStorageReference = scope === "public" ? "messages" : "messages-private"
         const messages =
-          JSON.parse(localStorage.getItem("messages") ?? "") || [];
+          JSON.parse(localStorage.getItem(localStorageReference) ?? "") || [];
         messages.push({ isRequest: false, text: data.text, links: data.links });
-        localStorage.setItem("messages", JSON.stringify(messages));
+        localStorage.setItem(localStorageReference, JSON.stringify(messages));
         window.dispatchEvent(new Event("storage"));
       },
     },

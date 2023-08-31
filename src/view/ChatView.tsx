@@ -30,7 +30,7 @@ export const ChatView = ({ scope }: { scope: "private" | "public" }) => {
           alt="logo"
         />
       </LogoContainer>
-      <ChatContent isLoadingMessage={isLoadingMessage} />
+      <ChatContent scope={scope} isLoadingMessage={isLoadingMessage} />
       <ChatInput
         scope={scope}
         isLoadingMessage={isLoadingMessage}

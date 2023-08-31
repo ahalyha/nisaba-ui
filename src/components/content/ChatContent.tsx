@@ -5,14 +5,17 @@ import { ILocalMessage } from "src/types/message";
 
 export const ChatContent = ({
   isLoadingMessage,
+  scope,
 }: {
+  scope: "private" | "public";
   isLoadingMessage: boolean;
 }) => {
   const [messages, setMessages] = useState<ILocalMessage[]>([]);
+  const localStorageReference = scope === "public" ? "messages" : "messages-private"
 
   useEffect(() => {
     const handleMessageChanges = () => {
-      const localMessages = localStorage.getItem("messages");
+      const localMessages = localStorage.getItem(localStorageReference);
       if (localMessages) {
         setMessages(JSON.parse(localMessages));
         return;
@@ -24,7 +27,7 @@ export const ChatContent = ({
     return () => {
       window.removeEventListener("storage", handleMessageChanges);
     };
-  }, []);
+  }, [localStorageReference]);
 
   return (
     <ContentContainer>

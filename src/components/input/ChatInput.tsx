@@ -19,18 +19,20 @@ export const ChatInput = ({
   const [text, setText] = useState("");
   const { mutate: onSend, isLoading } = useSendMessage({ scope });
 
+  const localStorageReference = scope === "public" ? "messages" : "messages-private"
+
   const handleSendMessage = () => {
     if (!text) return;
 
-    const localMessages = localStorage.getItem("messages");
+    const localMessages = localStorage.getItem(localStorageReference);
 
     if (localMessages) {
       const messages = JSON.parse(localMessages);
       messages.push({ isRequest: true, text, links: [] });
-      localStorage.setItem("messages", JSON.stringify(messages));
+      localStorage.setItem(localStorageReference, JSON.stringify(messages));
     } else {
       localStorage.setItem(
-        "messages",
+        localStorageReference,
         JSON.stringify([{ isRequest: true, text, links: [] }]),
       );
     }
