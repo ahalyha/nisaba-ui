@@ -36,7 +36,6 @@ export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
   return (
     <ChatInputContainer>
       <ChatInputStyled
-        multiline
         variant="outlined"
         placeholder="Ask your question"
         value={text}
