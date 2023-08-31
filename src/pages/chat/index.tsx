@@ -8,7 +8,7 @@ export default function ChatPage() {
         <title>Nisaba</title>
       </Head>
       <main>
-        <ChatView scope="public"/>
+        <ChatView scope="public" />
       </main>
     </>
   );

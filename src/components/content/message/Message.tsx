@@ -12,7 +12,16 @@ export const Message: FC<MessageProps> = ({ message }: MessageProps) => {
     return message.isRequest ? (
       <SentMessage>{message.text}</SentMessage>
     ) : (
-      <ReceivedMessage>{message.text}<LinksContainer>{message.links.map((link, index) => <Link href={link} key={link}>source {index+1}</Link>)}</LinksContainer></ReceivedMessage>
+      <ReceivedMessage>
+        {message.text}
+        <LinksContainer>
+          {message.links.map((link, index) => (
+            <Link href={link} key={link}>
+              source {index + 1}
+            </Link>
+          ))}
+        </LinksContainer>
+      </ReceivedMessage>
     );
   }
 };

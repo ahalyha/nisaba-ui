@@ -3,14 +3,23 @@ import { ChatInput } from "src/components/input/ChatInput";
 import { ChatContent } from "src/components/content/ChatContent";
 import { LogoContainer, PageContainer } from "./ChatView.styled";
 import { Typography } from "@mui/material";
+import { useState } from "react";
 
-const medusaFont = localFont({src: "../../fonts/Medusa.otf"});
+const medusaFont = localFont({ src: "../../fonts/Medusa.otf" });
 
-export const ChatView = ({scope}:{scope: "private" | "public"}) => {
+export const ChatView = ({ scope }: { scope: "private" | "public" }) => {
+  const [isLoadingMessage, setIsLoadingMessage] = useState<boolean>(false);
   return (
     <PageContainer>
       <LogoContainer>
-        <Typography variant="h1" component="h1" fontWeight={400} marginBottom={0} style={medusaFont.style} letterSpacing={10}>
+        <Typography
+          variant="h1"
+          component="h1"
+          fontWeight={400}
+          marginBottom={0}
+          style={medusaFont.style}
+          letterSpacing={10}
+        >
           Nisaba
         </Typography>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -21,8 +30,12 @@ export const ChatView = ({scope}:{scope: "private" | "public"}) => {
           alt="logo"
         />
       </LogoContainer>
-      <ChatContent />
-      <ChatInput scope={scope}/>
+      <ChatContent isLoadingMessage={isLoadingMessage} />
+      <ChatInput
+        scope={scope}
+        isLoadingMessage={isLoadingMessage}
+        setIsLoadingMessage={setIsLoadingMessage}
+      />
     </PageContainer>
   );
 };

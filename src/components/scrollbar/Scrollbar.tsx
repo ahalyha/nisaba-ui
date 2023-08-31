@@ -16,7 +16,7 @@ const Scrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
 
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        userAgent
+        userAgent,
       );
 
     if (isMobile) {
@@ -40,7 +40,7 @@ const Scrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
         </StyledScrollbar>
       </StyledRootScrollbar>
     );
-  }
+  },
 );
 
 Scrollbar.displayName = "Scrollbar";

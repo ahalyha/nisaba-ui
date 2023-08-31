@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { ContentContainer } from "./ChatContent.styled";
+import { ContentContainer, Progress } from "./ChatContent.styled";
 import { Message } from "./message/Message";
 import { ILocalMessage } from "src/types/message";
 
-export const ChatContent = () => {
+export const ChatContent = ({
+  isLoadingMessage,
+}: {
+  isLoadingMessage: boolean;
+}) => {
   const [messages, setMessages] = useState<ILocalMessage[]>([]);
 
   useEffect(() => {
@@ -27,6 +31,13 @@ export const ChatContent = () => {
       {messages.map((message, index) => (
         <Message key={`${message.text}-${index}`} message={message} />
       ))}
+      {isLoadingMessage && (
+        <Progress>
+          <div></div>
+          <div></div>
+          <div></div>
+        </Progress>
+      )}
     </ContentContainer>
   );
 };

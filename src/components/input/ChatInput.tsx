@@ -4,12 +4,20 @@ import {
   ChatInputContainer,
   ChatInputStyled,
 } from "./ChatInput.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSendMessage } from "src/server/hooks/useSendMessage";
 
-export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
+export const ChatInput = ({
+  scope,
+  isLoadingMessage,
+  setIsLoadingMessage,
+}: {
+  scope: "private" | "public";
+  isLoadingMessage: boolean;
+  setIsLoadingMessage: (val: boolean) => void;
+}) => {
   const [text, setText] = useState("");
-  const { mutate: onSend } = useSendMessage({scope});
+  const { mutate: onSend, isLoading } = useSendMessage({ scope });
 
   const handleSendMessage = () => {
     if (!text) return;
@@ -23,7 +31,7 @@ export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
     } else {
       localStorage.setItem(
         "messages",
-        JSON.stringify([{ isRequest: true, text, links: [] }])
+        JSON.stringify([{ isRequest: true, text, links: [] }]),
       );
     }
 
@@ -33,6 +41,11 @@ export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
     setText("");
   };
 
+  useEffect(() => {
+    if (isLoadingMessage !== isLoading) {
+      setIsLoadingMessage(isLoading);
+    }
+  }, [isLoading, isLoadingMessage, setIsLoadingMessage]);
   return (
     <ChatInputContainer>
       <ChatInputStyled
@@ -40,6 +53,12 @@ export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
         placeholder="Ask your question"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleSendMessage();
+            event.preventDefault();
+          }
+        }}
       />
       <ChatInputButton onClick={handleSendMessage}>
         <SendIcon sx={{ color: "black" }} />
