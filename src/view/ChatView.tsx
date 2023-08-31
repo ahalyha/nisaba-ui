@@ -1,14 +1,16 @@
+import localFont from "next/font/local";
 import { ChatInput } from "src/components/input/ChatInput";
 import { ChatContent } from "src/components/content/ChatContent";
-
 import { LogoContainer, PageContainer } from "./ChatView.styled";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
-export const ChatView = () => {
+const medusaFont = localFont({src: "../../fonts/Medusa.otf"});
+
+export const ChatView = ({scope}:{scope: "private" | "public"}) => {
   return (
     <PageContainer>
       <LogoContainer>
-        <Typography variant="h1" component="h1" fontWeight={600} marginBottom={0}>
+        <Typography variant="h1" component="h1" fontWeight={400} marginBottom={0} style={medusaFont.style} letterSpacing={10}>
           Nisaba
         </Typography>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -20,7 +22,7 @@ export const ChatView = () => {
         />
       </LogoContainer>
       <ChatContent />
-      <ChatInput />
+      <ChatInput scope={scope}/>
     </PageContainer>
   );
 };

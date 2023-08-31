@@ -7,9 +7,9 @@ import {
 import { useState } from "react";
 import { useSendMessage } from "src/server/hooks/useSendMessage";
 
-export const ChatInput = () => {
+export const ChatInput = ({scope}:{scope: "private" | "public"}) => {
   const [text, setText] = useState("");
-  const { mutate: onSend } = useSendMessage();
+  const { mutate: onSend } = useSendMessage({scope});
 
   const handleSendMessage = () => {
     if (!text) return;
