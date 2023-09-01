@@ -34,7 +34,7 @@ export default function Home() {
             style={{ objectFit: "contain" }}
             alt="logo"
           />
-          <Button variant="text" size="small" sx={{marginTop: 5, borderRadius: 16}} onClick={() => void router.push('/chat')}>Chat</Button>
+          <Button variant="text" size="small" sx={{marginTop: 5, borderRadius: 16}} onClick={() => void router.push('/chat-private')}>Chat</Button>
       </Box>
     </>
   );
